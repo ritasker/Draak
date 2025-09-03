@@ -1,0 +1,15 @@
+{
+  "name": "draak.web",
+  "version": "1.0.0",
+  "description": "A web-based text adventure",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli -i app.css -o wwwroot/css/site.css",
+    "watch:css": "npx @tailwindcss/cli -i app.css -o wwwroot/css/site.css --watch"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.10",
+    "tailwindcss": "^4.1.10",
+    "daisyui": "^5.0.43"
+  }
+}
