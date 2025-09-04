@@ -4,7 +4,6 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 .DS_Store
-/src/draak-ui/dist
 
 
 # local env files
@@ -370,3 +369,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/src/Draak.Web/wwwroot/css/site.css

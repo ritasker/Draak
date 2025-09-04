@@ -22,5 +22,6 @@ app.UseAntiforgery();
 
 app.MapStaticAssets();
 app.MapRazorComponents<App>();
+app.MapEndpoints();
 
 app.Run();

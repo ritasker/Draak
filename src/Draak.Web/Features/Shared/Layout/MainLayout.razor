@@ -1,5 +1,43 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="flex flex-col h-full max-w-5xl mx-auto w-full">
-    @Body
+<div
+    class="flex flex-col h-full max-w-5xl mx-auto w-full shadow-2xl">
+    <div class="bg-base01 px-4 py-2 flex justify-center w-full">
+        <div class="flex flex-row text-base3 text-sm justify-between w-full">
+            <span>Entrance Hall</span>
+            <span>Score: <span>000246</span></span>
+        </div>
+    </div>
+
+    <div class="flex-1 overflow-hidden bg-base02 p-2">
+        <div class="terminal-output h-full overflow-y-auto">
+            <div class="mb-2">
+                <p class="text-cyan whitespace-pre-wrap px-4">
+                    You are standing in an open field west of a white house, with a boarded front door.
+                    There is a small mailbox here.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-base02 border-t-2 border-base01 p-4">
+        <div class="flex items-center text-base3 placeholder-base1">
+            <span class="text-green font-bold mr-2">></span>
+            <input
+                type="text"
+                class="flex-1 bg-transparent outline-none"
+                placeholder="Enter command..."
+                autocomplete="off"
+                spellcheck="false">
+        </div>
+    </div>
 </div>
+
+<HeadContent>
+    <script src="/js/tower.js"></script>
+    <script>
+        document.addEventListener("alpine:initializing", () => {
+            gameTerminal()
+        });
+    </script>
+</HeadContent>
