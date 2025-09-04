@@ -1,8 +1,8 @@
 ﻿@inherits LayoutComponentBase
 
 <div
-    class="flex flex-col h-full max-w-5xl mx-auto w-full shadow-2xl">
-    <div class="bg-base01 px-4 py-2 flex justify-center w-full">
+    class="flex flex-col h-full max-w-5xl mx-auto w-full shadow-[0_25px_25px_#000]">
+    <div class="bg-base01 px-4 py-2 flex gap-4 justify-center w-full">
         <div class="flex flex-row text-base3 text-sm justify-between w-full">
             <span>Entrance Hall</span>
             <span>Score: <span>000246</span></span>
@@ -10,14 +10,7 @@
     </div>
 
     <div class="flex-1 overflow-hidden bg-base02 p-2">
-        <div class="terminal-output h-full overflow-y-auto">
-            <div class="mb-2">
-                <p class="text-cyan whitespace-pre-wrap px-4">
-                    You are standing in an open field west of a white house, with a boarded front door.
-                    There is a small mailbox here.
-                </p>
-            </div>
-        </div>
+        @Body   
     </div>
 
     <div class="bg-base02 border-t-2 border-base01 p-4">
@@ -34,10 +27,5 @@
 </div>
 
 <HeadContent>
-    <script src="/js/tower.js"></script>
-    <script>
-        document.addEventListener("alpine:initializing", () => {
-            gameTerminal()
-        });
-    </script>
+    
 </HeadContent>
