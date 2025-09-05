@@ -1,12 +1,40 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components.Sections
 
 <PageTitle>Tower of Delusion</PageTitle>
 
-<div class="terminal-output h-full overflow-y-auto">
-    <div class="mb-2">
-        <p class="text-cyan whitespace-pre-wrap px-4">
-            You are standing in an open field west of a white house, with a boarded front door.
-            There is a small mailbox here.
+<SectionContent SectionName="title-bar">
+    <div class="flex flex-row text-base3 text-sm justify-center w-full">
+        <span>Tower of Delusion</span>
+    </div>
+</SectionContent>
+
+<div class="terminal-output h-full overflow-y-auto justify-items-center">
+    <div class="mt-4 text-cyan max-w-2xl">
+        <p class="border border-cyan p-4  text-center">
+            The Tower of Delusion is a text adventure based on the solo D&amp;D adventure Beyond the Vale of Madness by J.C Conners.
+            This is a Zork styled text adventure were you the player will journey through a treacherous blizzard to find a
+            legendary castle that emerges from the snow once every seven winters, a place said to be haunted by the living dead and
+            other dangers.
+        </p>
+    </div>
+    <div class="mt-auto max-w-2xl">
+        <p class="p-4">
+            Please log in or register to continue your journey.<br/>
+            To log in, type: login<br/>
+            To create a new account, type: register<br/>
         </p>
     </div>
 </div>
+
+<SectionContent SectionName="terminal-input">
+    <div class="flex items-center text-base3 placeholder-base1">
+        <span class="text-green font-bold mr-2">></span>
+        <input
+            type="text"
+            class="flex-1 bg-transparent outline-none"
+            placeholder="Enter command..."
+            autocomplete="off"
+            spellcheck="false">
+    </div>
+</SectionContent>

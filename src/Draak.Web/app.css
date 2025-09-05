@@ -17,4 +17,34 @@
     --color-blue: #268bd2;
     --color-cyan: #2aa198;
     --color-green: #859900;
+
+    /* Scrollbar styling */
+    .terminal-output::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .terminal-output::-webkit-scrollbar-track {
+        background: var(--color-base02);
+    }
+
+    .terminal-output::-webkit-scrollbar-thumb {
+        background: var(--color-base01);
+        border-radius: 4px;
+    }
+
+    .terminal-output::-webkit-scrollbar-thumb:hover {
+        background: var(--color-base00);
+    }
+
+    /* Typewriter effect */
+    @keyframes typewriter {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+
+    .typewriter {
+        overflow: hidden;
+        white-space: pre-wrap;
+        animation: typewriter 2s steps(40) forwards;
+    }
 }
