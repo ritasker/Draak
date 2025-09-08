@@ -1,0 +1,7 @@
+name: tower-of-delusion
+description: A modern text adventure web app 
+runtime: dotnet
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: azure-csharp
