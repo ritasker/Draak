@@ -18,4 +18,10 @@ public static class Helpers
             .WithWorkingDirectory(workingDirectory)
             .ExecuteAsync();
     }
+    
+    public static DirectoryInfo GetSubDirectory(this DirectoryInfo directoryInfo, string subDirectoryName)
+    {
+        var subdirectory = Path.Combine(directoryInfo.FullName, subDirectoryName);
+        return new DirectoryInfo(subdirectory);
+    }
 }
