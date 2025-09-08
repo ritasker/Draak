@@ -1,4 +1,4 @@
-﻿namespace Draak.Web.Features;
+﻿namespace TowerOfDelusion.Features;
 
 public static class HomeModule
 {
