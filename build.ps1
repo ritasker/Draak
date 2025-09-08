@@ -1,0 +1,1 @@
+dotnet run --project ./src/TowerOfDelusion.Build -c Release -- $args
