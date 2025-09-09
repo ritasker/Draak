@@ -25,7 +25,7 @@ Target(
             "docker",
             $"build -f {artifactsDirectory}/TowerOfDelusion/Dockerfile "
             + $"--tag {settings.DockerImageName}:{settings.CommitSha} "
-            + $"--tag {settings.DockerImageName}:local-latest "
+            + $"--tag {settings.DockerImageName}:latest "
             + $"{artifactsDirectory}/TowerOfDelusion");
     });
 
