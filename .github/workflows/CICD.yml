@@ -29,6 +29,7 @@ jobs:
       run: echo ${{github.ref}} and ${{github.event_name}} by ${{github.triggering_actor}}
       
     - name: Build and Test
-      run: |
-        docker ps
-        dotnet run --project ./src/TowerOfDelusion.Build -c Release
+      env:
+          DOCKER_USR: ${{ vars.DOCKER_USR }}
+          DOCKER_PAT: ${{ secrets.DOCKER_PAT }}
+      run: dotnet run --project ./src/TowerOfDelusion.Build -c Release
