@@ -1,6 +1,4 @@
-﻿using CliWrap;
-using CliWrap.Buffered;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace TowerOfDelusion.Build;
 
@@ -9,6 +7,9 @@ public class Settings
     private const string DefaultCommitSha = "00000000";
     public string CommitSha { get; set; } = DefaultCommitSha;
     public DirectoryInfo RootDirectory { get; private set; } = null!;
+    public string DockerImageName => "ritasker/TowerOfDelusion";
+    public string DockerUsername { get; set; }
+    public string DockerPassword { get; set; }
 
     public static Settings Load()
     {
@@ -20,10 +21,12 @@ public class Settings
         var settings = new Settings();
         config.Bind(settings);
 
-        var githubPredefinedVariables = new GithubCICDPredefinedVariables();
-        config.Bind(githubPredefinedVariables);
+        var githubVariables = new GithubVariables();
+        config.Bind(githubVariables);
 
-        //settings.CommitSha = githubPredefinedVariables.GITHUB_SHA!.Substring(0, 8);
+        settings.CommitSha = githubVariables.GITHUB_SHA.Substring(0, 8);
+        settings.DockerUsername = githubVariables.DOCKER_USR;
+        settings.DockerPassword = githubVariables.DOCKER_PAT;
         settings.RootDirectory = GetRootDirectory();
 
         return settings;
