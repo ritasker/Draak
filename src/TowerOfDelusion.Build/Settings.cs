@@ -7,7 +7,7 @@ public class Settings
     private const string DefaultCommitSha = "00000000";
     public string CommitSha { get; set; } = DefaultCommitSha;
     public DirectoryInfo RootDirectory { get; private set; } = null!;
-    public string DockerImageName => "ritasker/TowerOfDelusion";
+    public string DockerImageName => "ritasker/tower-of-delusion";
     public string DockerUsername { get; set; }
     public string DockerPassword { get; set; }
 
