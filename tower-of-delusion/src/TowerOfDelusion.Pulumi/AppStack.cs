@@ -7,6 +7,6 @@ public class AppStack : Stack
 {
     public AppStack()
     {
-        var resourceGroup = new ResourceGroup("rg-delusion-prod");
+        var resourceGroup = new ResourceGroup("rg-tower-of-delusion-prod");
     }
 }
