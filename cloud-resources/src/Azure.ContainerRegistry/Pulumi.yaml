@@ -1,4 +1,4 @@
-name: azure-container-registry
+name: Azure.ContainerRegistry
 description: A minimal Azure Native C# Pulumi program
 runtime: dotnet
 config:

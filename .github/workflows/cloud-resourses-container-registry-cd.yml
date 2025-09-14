@@ -36,4 +36,4 @@ jobs:
         uses: pulumi/actions@v6
         with:
           command: up
-          stack-name: ritasker/azure-container-regisrty/production
+          stack-name: ritasker/Azure.ContainerRegistry/production
