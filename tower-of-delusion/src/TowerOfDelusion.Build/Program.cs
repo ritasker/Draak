@@ -4,7 +4,7 @@ using static TowerOfDelusion.Build.Helpers;
 using static Bullseye.Targets;
 
 var settings     = Settings.Load();
-var srcDirectory = settings.RootDirectory.GetSubDirectory("src");
+var srcDirectory = settings.RootDirectory.GetSubDirectory(Path.Combine("tower-of-delusion","src"));
 var artifactsDirectory = settings.RootDirectory.GetSubDirectory("artifacts");
 
 Target(
