@@ -33,7 +33,7 @@ jobs:
           dotnet-version: 9.*
         
       - name: Pulumi up
-        uses: pulumi/actions@6
+        uses: pulumi/actions@v6
         with:
           command: up
           stack-name: ritasker/azure-container-regisrty/production
