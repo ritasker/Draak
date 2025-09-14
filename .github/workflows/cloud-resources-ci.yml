@@ -9,7 +9,7 @@ on:
       
 defaults:
   run:
-    working-directory: cloud-resources
+    working-directory: cloud-resources/src/
 
 jobs:
   build:
