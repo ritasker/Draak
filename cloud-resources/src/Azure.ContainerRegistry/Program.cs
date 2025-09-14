@@ -5,7 +5,7 @@ using AzureNative = Pulumi.AzureNative;
 
 return await Pulumi.Deployment.RunAsync(() =>
 {
-    var config = new Config();
+    var config = new Config("azure-native");
     var location = config.Require("location");
     
     var resourceGroup = new ResourceGroup("resourceGroup", new ResourceGroupArgs
@@ -18,7 +18,7 @@ return await Pulumi.Deployment.RunAsync(() =>
     {
         AdminUserEnabled = true,
         AnonymousPullEnabled = false,
-        RegistryName = "pier-8",
+        RegistryName = "pier8",
         ResourceGroupName = resourceGroup.Name,
         Location = resourceGroup.Location,
         Sku = new AzureNative.ContainerRegistry.Inputs.SkuArgs
