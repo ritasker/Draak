@@ -30,5 +30,5 @@ jobs:
     - name: Build reason
       run: echo ${{github.ref}} and ${{github.event_name}}
 
-    - name: Build and test
+    - name: Build
       run: dotnet build -c Release CloudResources.slnf
