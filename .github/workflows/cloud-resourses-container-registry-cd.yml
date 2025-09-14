@@ -1,4 +1,4 @@
-name: cloud-resources\container registry cd
+name: container registry cd
 
 on:
   push:
@@ -6,11 +6,11 @@ on:
       - main
     paths:
       - .github/workflows/cloud-resources-container-registry-cd.yml
-      - src/cloud-resources/src/Azure.ContainerRegistry/**
+      - cloud-resources/src/Azure.ContainerRegistry/**
         
 defaults: 
   run:
-    working-directory: src/cloud-resources/src/Azure.ContainerRegistry
+    working-directory: cloud-resources/src/Azure.ContainerRegistry
     
 jobs: 
   deploy:
