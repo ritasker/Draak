@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - .github/workflows/cloud-resources-container-registry-cd.yml
+      - .github/workflows/cloud-resourses-container-registry-cd.yml
       - cloud-resources/src/Azure.ContainerRegistry/**
         
 defaults: 
