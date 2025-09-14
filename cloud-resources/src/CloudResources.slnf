@@ -1,0 +1,9 @@
+{
+  "solution": {
+    "path": "..\\..\\Pier8.Draak.slnx",
+    "projects": [
+      "src\\cloud-resources\\src\\Azure.ContainerApps\\Azure.ContainerApps.csproj",
+      "src\\cloud-resources\\src\\Azure.ContainerRegistry\\Azure.ContainerRegistry.csproj",
+    ]
+  }
+}
