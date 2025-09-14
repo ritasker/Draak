@@ -15,9 +15,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d331bda2-d322-4cb3-9a5b-c75ea4d3d00e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pier8.Draak/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pier8.Draak/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pier8.Draak.slnx" beforeDir="false" afterPath="$PROJECT_DIR$/Pier8.Draak.slnx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-resources/src/Azure.ContainerApps/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-resources/src/Azure.ContainerApps/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/CICD.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/CICD.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/cloud-resources-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/cloud-resources-ci.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-resources/src/Azure.ContainerRegistry/Pulumi.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-resources/src/Azure.ContainerRegistry/Pulumi.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -245,7 +245,7 @@
       <workItem from="1756973075466" duration="457000" />
       <workItem from="1756989105072" duration="4676000" />
       <workItem from="1757073994688" duration="157000" />
-      <workItem from="1757668976717" duration="8691000" />
+      <workItem from="1757668976717" duration="10959000" />
     </task>
     <task id="LOCAL-00001" summary="Add theme and HTML to the home page">
       <option name="closed" value="true" />
@@ -279,7 +279,15 @@
       <option name="project" value="LOCAL" />
       <updated>1757860485744</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add Azure Container Registry Pulumi project, update solution and CI/CD configuration">
+      <option name="closed" value="true" />
+      <created>1757874157962</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1757874157962</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,7 +301,8 @@
     <MESSAGE value="remove infra projects" />
     <MESSAGE value="Add Container Apps pulumi prtoject" />
     <MESSAGE value="Add IntelliJ workspace configuration files" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="Add Azure Container Registry Pulumi project, update solution and CI/CD configuration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Azure Container Registry Pulumi project, update solution and CI/CD configuration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
