@@ -1,3 +1,0 @@
-name: azure-container-registry
-runtime: dotnet
-description: A minimal Azure Native C# Pulumi program
