@@ -32,4 +32,4 @@ jobs:
       env:
           DOCKER_USR: ${{ vars.DOCKER_USR }}
           DOCKER_PAT: ${{ secrets.DOCKER_PAT }}
-      run: dotnet run --project ./src/TowerOfDelusion.Build -c Release
+      run: dotnet run --project ./tower-of-delusion/src/TowerOfDelusion.Build -c Release

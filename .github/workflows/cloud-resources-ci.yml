@@ -14,9 +14,7 @@ defaults:
 jobs:
   build:
     name: Build
-    runs-on:
-      group: Helix
-      labels: ubuntu-latest-16
+    runs-on: ubuntu-latest
     timeout-minutes: 15
 
     steps:
