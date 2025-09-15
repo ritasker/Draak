@@ -40,3 +40,4 @@ jobs:
         with:
           command: up
           stack-name: ritasker/Azure.ContainerRegistry/production
+          work-dir: cloud-resources/src/Azure.ContainerRegistry
