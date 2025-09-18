@@ -39,6 +39,7 @@ jobs:
         uses: pulumi/actions@v6
     
   update:
+    if: ${{ github.ref == 'refs/heads/main' }}
     name: Update iac container registry
     runs-on: ubuntu-latest
       
