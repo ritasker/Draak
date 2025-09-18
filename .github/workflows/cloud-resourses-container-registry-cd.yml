@@ -57,9 +57,9 @@ jobs:
           command: up
           stack-name: ritasker/Azure.ContainerRegistry/production
           work-dir: cloud-resources/src/Azure.ContainerRegistry
-          env:
-            ARM_USE_OIDC: "true"
-            ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
-            ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
-            ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-            PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+        env:
+          ARM_USE_OIDC: "true"
+          ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
