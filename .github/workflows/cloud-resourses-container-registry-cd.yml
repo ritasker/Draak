@@ -11,7 +11,11 @@ on:
 defaults: 
   run:
     working-directory: cloud-resources/src/Azure.ContainerRegistry
-    
+
+permissions:
+  id-token: write
+  contents: read
+  
 jobs: 
   deploy:
     name: iac container registry
