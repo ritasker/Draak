@@ -35,6 +35,13 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.*
+          
+      - name: Azure CLI Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.ARM_CLIENT_ID }}
+          tenant-id: ${{ vars.ARM_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
         
       - name: Pulumi up
         uses: pulumi/actions@v6
