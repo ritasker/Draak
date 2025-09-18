@@ -1,6 +1,10 @@
 name: container registry cd
 
 on:
+  pull_request:
+    paths:
+      - .github/workflows/cloud-resourses-container-registry-cd.yml
+      - cloud-resources/src/Azure.ContainerRegistry/**
   push:
     branches:
       - main
@@ -16,16 +20,28 @@ permissions:
   id-token: write
   contents: read
   
-jobs: 
-  deploy:
-    name: iac container registry
+jobs:
+  preview:
+    name: Preview iac container registry
     runs-on: ubuntu-latest
-    env:
-      ARM_USE_OIDC: "true"
-      ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
-      ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
-      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-      PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.*
+        
+      - name: Pulumi preview
+        uses: pulumi/actions@v6
+    
+  update:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    name: Update iac container registry
+    runs-on: ubuntu-latest
       
     steps:
       - name: Checkout
@@ -35,13 +51,6 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.*
-          
-      - name: Azure CLI Login
-        uses: azure/login@v2
-        with:
-          client-id: ${{ vars.ARM_CLIENT_ID }}
-          tenant-id: ${{ vars.ARM_TENANT_ID }}
-          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
         
       - name: Pulumi up
         uses: pulumi/actions@v6
@@ -49,3 +58,9 @@ jobs:
           command: up
           stack-name: ritasker/Azure.ContainerRegistry/production
           work-dir: cloud-resources/src/Azure.ContainerRegistry
+        env:
+          ARM_USE_OIDC: "true"
+          ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
