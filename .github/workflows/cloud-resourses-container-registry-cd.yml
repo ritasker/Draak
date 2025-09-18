@@ -12,10 +12,12 @@ jobs:
   preview:
     name: Preview iac container registry
     runs-on: ubuntu-latest
-    on: [pull_request]
-    paths:
-      - .github/workflows/cloud-resourses-container-registry-cd.yml
-      - cloud-resources/src/Azure.ContainerRegistry/**
+    on:
+      pull_request:
+        paths:
+          - .github/workflows/cloud-resourses-container-registry-cd.yml
+          - cloud-resources/src/Azure.ContainerRegistry/**
+    
     timeout-minutes: 15
     
     steps:
