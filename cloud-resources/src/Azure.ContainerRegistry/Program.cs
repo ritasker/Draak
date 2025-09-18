@@ -32,5 +32,4 @@ return await Pulumi.Deployment.RunAsync(() =>
         ["rg-name"]  = resourceGroup.Name,
         ["registry"] = containerRegistry.Name
     };
-    
 });
