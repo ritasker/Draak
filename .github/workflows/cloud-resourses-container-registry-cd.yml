@@ -1,5 +1,17 @@
 name: container registry cd
 
+on:
+  pull_request:
+    paths:
+      - .github/workflows/cloud-resourses-container-registry-cd.yml
+      - cloud-resources/src/Azure.ContainerRegistry/**
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/cloud-resourses-container-registry-cd.yml
+      - cloud-resources/src/Azure.ContainerRegistry/**
+        
 defaults: 
   run:
     working-directory: cloud-resources/src/Azure.ContainerRegistry
@@ -12,12 +24,6 @@ jobs:
   preview:
     name: Preview iac container registry
     runs-on: ubuntu-latest
-    on:
-      pull_request:
-        paths:
-          - .github/workflows/cloud-resourses-container-registry-cd.yml
-          - cloud-resources/src/Azure.ContainerRegistry/**
-    
     timeout-minutes: 15
     
     steps:
@@ -35,13 +41,6 @@ jobs:
   update:
     name: Update iac container registry
     runs-on: ubuntu-latest
-    on:
-      push:
-        branches:
-          - main
-        paths:
-          - .github/workflows/cloud-resourses-container-registry-cd.yml
-          - cloud-resources/src/Azure.ContainerRegistry/**
       
     steps:
       - name: Checkout
