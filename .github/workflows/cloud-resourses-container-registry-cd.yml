@@ -1,6 +1,7 @@
 name: container registry cd
 
 on:
+  workflow_dispatch:
   pull_request:
     paths:
       - .github/workflows/cloud-resourses-container-registry-cd.yml
