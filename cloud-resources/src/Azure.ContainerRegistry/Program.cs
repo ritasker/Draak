@@ -1,5 +1,7 @@
-﻿using Pulumi.AzureNative.Resources;
+﻿using System;
+using Pulumi.AzureNative.Resources;
 using System.Collections.Generic;
+using Pulumi;
 using Config = Pulumi.Config;
 using AzureNative = Pulumi.AzureNative;
 
@@ -25,6 +27,12 @@ return await Pulumi.Deployment.RunAsync(() =>
         {
             Name = AzureNative.ContainerRegistry.SkuName.Basic,
         },
+    }, new CustomResourceOptions
+    {
+        CustomTimeouts = new CustomTimeouts
+        {
+            Create = TimeSpan.FromMinutes(20) // Set create timeout to 20 minutes
+        }
     });
     
     return new Dictionary<string, object?>
