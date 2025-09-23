@@ -1,4 +1,4 @@
-name: container registry cd
+name: container apps cd
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ on:
       - main
     paths:
       - .github/workflows/cloud-resourses-container-apps-cd.yml
-      - cloud-resources/src/Azure.Apps/**
+      - cloud-resources/src/Azure.ContainerApps/**
         
 defaults: 
   run:
