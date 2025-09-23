@@ -7,9 +7,9 @@ public class Settings
     private const string DefaultCommitSha = "00000000";
     public string CommitSha { get; set; } = DefaultCommitSha;
     public DirectoryInfo RootDirectory { get; private set; } = null!;
-    public string DockerImageName => "ritasker/tower-of-delusion";
-    public string DockerUsername { get; set; }
-    public string DockerPassword { get; set; }
+
+    private string ContainerRegistryServer => "pier8.azurecr.io";
+    public string DockerImageName => $"{ContainerRegistryServer}/tower-of-delusion";
 
     public static Settings Load()
     {
@@ -25,8 +25,6 @@ public class Settings
         config.Bind(githubVariables);
 
         settings.CommitSha = githubVariables.GITHUB_SHA.Substring(0, 8);
-        settings.DockerUsername = githubVariables.DOCKER_USR;
-        settings.DockerPassword = githubVariables.DOCKER_PAT;
         settings.RootDirectory = GetRootDirectory();
 
         return settings;

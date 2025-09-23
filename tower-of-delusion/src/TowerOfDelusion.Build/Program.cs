@@ -30,13 +30,8 @@ Target(
     });
 
 Target(
-    "docker-login",
-    dependsOn:["publish"],
-    async () => { await Run("docker", $"login -u {settings.DockerUsername} -p {settings.DockerPassword}"); });
-
-Target(
     "push-image",
-    dependsOn:["docker-login"],
+    dependsOn:["publish"],
     async () => { await Run("docker", $"push {settings.DockerImageName}:{settings.CommitSha}"); });
 
 Target("default", dependsOn: ["build", "publish", "push-image"]);

@@ -33,4 +33,18 @@ jobs:
       env:
           DOCKER_USR: ${{ vars.DOCKER_USR }}
           DOCKER_PAT: ${{ secrets.DOCKER_PAT }}
-      run: dotnet run --project ./tower-of-delusion/src/TowerOfDelusion.Build -c Release
+      run: dotnet run --project ./tower-of-delusion/src/TowerOfDelusion.Build -c Release -- build
+      
+    - name: 'Az CLI login'
+      uses: azure/login@v1
+      if: github.ref == 'refs/heads/main'
+      with:
+        client-id: ${{ vars.ARM_CLIENT_ID }}
+        tenant-id: ${{ vars.ARM_TENANT_ID }}
+        subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+        
+    - name: Push image
+      if: github.ref == 'refs/heads/main'
+      run: |
+        az acr login --name elaway
+        dotnet run --project build -c Release -- push-image
