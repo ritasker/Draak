@@ -1,2 +1,4 @@
 config:
   azure-native:location: uksouth
+  container-apps:environment: production
+  container-apps:logs-retention-days: "30"
