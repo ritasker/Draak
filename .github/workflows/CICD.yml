@@ -54,4 +54,4 @@ jobs:
       if: github.ref == 'refs/heads/main'
       run: |
         az acr login --name pier8
-        dotnet run --project build -c Release -- push-image
+        dotnet run --project ./tower-of-delusion/src/TowerOfDelusion.Build -c Release -- push-image
