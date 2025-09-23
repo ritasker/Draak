@@ -39,6 +39,8 @@ return await Pulumi.Deployment.RunAsync(() =>
                 WorkspaceName     = items.Item2
             }));
     
+    // TODO remove this comment
+    
     var managedEnvironment = new ManagedEnvironment(
         environment,
         new ManagedEnvironmentArgs
