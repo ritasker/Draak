@@ -1,0 +1,67 @@
+name: container registry cd
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/cloud-resourses-container-apps-cd.yml
+      - cloud-resources/src/Azure.ContainerApps/**
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/cloud-resourses-container-apps-cd.yml
+      - cloud-resources/src/Azure.Apps/**
+        
+defaults: 
+  run:
+    working-directory: cloud-resources/src/Azure.ContainerApps
+
+permissions:
+  id-token: write
+  contents: read
+  
+jobs:
+  preview:
+    name: Preview iac container app
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.*
+        
+      - name: Pulumi preview
+        uses: pulumi/actions@v6
+    
+  update:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    name: Update iac container app
+    runs-on: ubuntu-latest
+      
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.*
+        
+      - name: Pulumi up
+        uses: pulumi/actions@v6
+        with:
+          command: up
+          stack-name: ritasker/Azure.ContainerApps/production
+          work-dir: cloud-resources/src/Azure.ContainerApps
+        env:
+          ARM_USE_OIDC: "true"
+          ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}

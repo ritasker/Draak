@@ -1,2 +1,3 @@
 config:
   azure-native:location: uksouth
+  container-apps:environment: production
