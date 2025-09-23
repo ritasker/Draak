@@ -11,6 +11,9 @@ on:
       - .github/workflows/CICD.yml
       - tower-of-delusion/**
 
+permissions:
+  id-token: write
+  
 jobs:
   build:
     name: Build and Test
