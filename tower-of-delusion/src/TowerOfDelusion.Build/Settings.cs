@@ -24,7 +24,7 @@ public class Settings
         var githubVariables = new GithubVariables();
         config.Bind(githubVariables);
 
-        settings.CommitSha = githubVariables.GITHUB_SHA.Substring(0, 8);
+        settings.CommitSha = githubVariables.GITHUB_SHA[..8];
         settings.RootDirectory = GetRootDirectory();
 
         return settings;
