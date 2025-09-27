@@ -36,7 +36,7 @@ return await Deployment.RunAsync(async () =>
         {
             ContainerAppName = "tower-of-delusion",
             ResourceGroupName = resourceGroupName,
-            ManagedEnvironmentId = mgdEnvId.ToString(),
+            ManagedEnvironmentId = mgdEnvId,
             Configuration = new ConfigurationArgs
             {
                 Ingress = new IngressArgs
