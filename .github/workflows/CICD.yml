@@ -79,8 +79,9 @@ jobs:
         uses: pulumi/actions@v6
         with:
           command: up
+          refresh: 'true'
           stack-name: ritasker/TowerOfDelusion.Pulumi/production
-          work-dir: tower-of-delusion/src/TowerOfDelusion.Pulumi
+          work-dir: tower-of-delusion/src/TowerOfDelusion.Pulumi          
           config-map: "{tower-of-delusion:ImageTag: $CI_COMMIT_SHORT_SHA}"
         env:
           ARM_USE_OIDC: "true"
