@@ -70,6 +70,7 @@ return await Deployment.RunAsync(async () =>
             },
             Template = new TemplateArgs
             {
+                RevisionSuffix = imageTag,
                 Containers =
                 {
                     new ContainerArgs
