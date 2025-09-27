@@ -14,13 +14,12 @@ return await Deployment.RunAsync(async () =>
     var stackName = Deployment.Instance.StackName;
 
     var containerRegistryStackRef = new StackReference($"ritasker/Azure.ContainerRegistry/{stackName}");
-    var containerRegistryResourceGroupName = containerRegistryStackRef.GetOutput("rg-name");
-    var containerRegistryName = containerRegistryStackRef.GetOutput("Name");
-    var containerRegistryLoginServerUrl = containerRegistryStackRef.GetOutput("LoginServer");
-
-    var containerRegistryCredentials = await ListRegistryCredentials.InvokeAsync(new ListRegistryCredentialsArgs
+    var containerRegistryLoginServerUrl = containerRegistryStackRef.RequireOutput("LoginServer").Apply(s => (string)s);
+    var containerRegistryResourceGroup = containerRegistryStackRef.RequireOutput("rg-name").Apply(s => (string)s);
+    var containerRegistryName = containerRegistryStackRef.RequireOutput("registry").Apply(s => (string)s);
+    var credentials = await ListRegistryCredentials.InvokeAsync(new ListRegistryCredentialsArgs
     {
-        ResourceGroupName = containerRegistryResourceGroupName.ToString(),
+        ResourceGroupName = containerRegistryResourceGroup.ToString(),
         RegistryName = containerRegistryName.ToString()
     });
 
@@ -31,6 +30,7 @@ return await Deployment.RunAsync(async () =>
     var config = new Config("tower-of-delusion");
     var imageTag = config.Require("ImageTag");
 
+    var containerRegistryUrl = await containerRegistryStackRef.GetValueAsync("LoginServer");
     var containerApp = new ContainerApp("tower-of-delusion", new ContainerAppArgs
         {
             ContainerAppName = "tower-of-delusion",
@@ -52,8 +52,8 @@ return await Deployment.RunAsync(async () =>
                 {
                     new RegistryCredentialsArgs
                     {
-                        Server = containerRegistryLoginServerUrl.ToString(),
-                        Username = containerRegistryCredentials.Username,
+                        Server = containerRegistryLoginServerUrl,
+                        Username = credentials.Username,
                         PasswordSecretRef = "pwd"
                     }
                 },
@@ -62,7 +62,7 @@ return await Deployment.RunAsync(async () =>
                     new SecretArgs
                     {
                         Name = "pwd",
-                        Value = containerRegistryCredentials.Passwords[0].Value
+                        Value = credentials.Passwords[0].Value
                     }
                 }
             },
