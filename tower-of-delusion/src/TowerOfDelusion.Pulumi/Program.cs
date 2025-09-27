@@ -79,7 +79,7 @@ return await Deployment.RunAsync(async () =>
                         Env = {  new EnvironmentVarArgs
                         {
                             Name = "ASPNETCORE_URLS",
-                            Value = $"{IPAddress.Any}:4000"
+                            Value = $"http://{IPAddress.Any}:4000"
                         } },
                         Resources = new ContainerResourcesArgs
                         {
