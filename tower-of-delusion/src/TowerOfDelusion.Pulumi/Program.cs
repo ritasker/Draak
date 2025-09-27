@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using Pulumi;
 using Pulumi.AzureNative.App;
 using Pulumi.AzureNative.App.Inputs;
@@ -28,8 +29,7 @@ return await Deployment.RunAsync(async () =>
     var containerAppStackRef = new StackReference($"ritasker/Azure.ContainerApps/{stackName}");
     var mgdEnvId = containerAppStackRef.RequireOutput("Id").Apply(s => (string)s);
     var resourceGroupName = $"container-apps-{stackName}";
-    
-    var config = new Config("tower-of-delusion");
+
     var imageTag = Environment.GetEnvironmentVariable("CI_COMMIT_SHORT_SHA");
     var containerImage = Output.Format($"{containerRegistryLoginServerUrl}/tower-of-delusion:{imageTag}");
     
@@ -43,7 +43,7 @@ return await Deployment.RunAsync(async () =>
                 Ingress = new IngressArgs
                 {
                     External = true,
-                    TargetPort = 80,
+                    TargetPort = 4000,
                     Traffic = new TrafficWeightArgs
                     {
                         Weight = 100,
@@ -76,6 +76,11 @@ return await Deployment.RunAsync(async () =>
                     {
                         Name = "tower-of-delusion",
                         Image = containerImage,
+                        Env = {  new EnvironmentVarArgs
+                        {
+                            Name = "ASPNETCORE_URLS",
+                            Value = $"{IPAddress.Any}:4000"
+                        } },
                         Resources = new ContainerResourcesArgs
                         {
                             Cpu = 2,
