@@ -17,11 +17,13 @@ return await Deployment.RunAsync(async () =>
     var containerRegistryLoginServerUrl = containerRegistryStackRef.RequireOutput("LoginServer").Apply(s => (string)s);
     var containerRegistryResourceGroup = containerRegistryStackRef.RequireOutput("rg-name").Apply(s => (string)s);
     var containerRegistryName = containerRegistryStackRef.RequireOutput("registry").Apply(s => (string)s);
-    var credentials = await ListRegistryCredentials.InvokeAsync(new ListRegistryCredentialsArgs
-    {
-        ResourceGroupName = containerRegistryResourceGroup.ToString(),
-        RegistryName = containerRegistryName.ToString()
-    });
+    
+    var credentials = Output.Tuple(containerRegistryResourceGroup, containerRegistryName).Apply(async t =>
+        await ListRegistryCredentials.InvokeAsync(new ListRegistryCredentialsArgs
+        {
+            ResourceGroupName = t.Item1,
+            RegistryName = t.Item2
+        }));
 
     var containerAppStackRef = new StackReference($"ritasker/Azure.ContainerApps/{stackName}");
     var mgdEnvId = containerAppStackRef.GetOutput("Id");
@@ -29,8 +31,7 @@ return await Deployment.RunAsync(async () =>
     
     var config = new Config("tower-of-delusion");
     var imageTag = config.Require("ImageTag");
-
-    var containerRegistryUrl = await containerRegistryStackRef.GetValueAsync("LoginServer");
+    
     var containerApp = new ContainerApp("tower-of-delusion", new ContainerAppArgs
         {
             ContainerAppName = "tower-of-delusion",
@@ -53,7 +54,7 @@ return await Deployment.RunAsync(async () =>
                     new RegistryCredentialsArgs
                     {
                         Server = containerRegistryLoginServerUrl,
-                        Username = credentials.Username,
+                        Username = credentials.Apply(c => c.Username),
                         PasswordSecretRef = "pwd"
                     }
                 },
@@ -62,7 +63,7 @@ return await Deployment.RunAsync(async () =>
                     new SecretArgs
                     {
                         Name = "pwd",
-                        Value = credentials.Passwords[0].Value
+                        Value = credentials.Apply(c => c.Passwords[0].Value)
                     }
                 }
             },
