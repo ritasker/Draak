@@ -14,7 +14,7 @@ return await Deployment.RunAsync(async () =>
     var stackName = Deployment.Instance.StackName;
 
     var containerRegistryStackRef = new StackReference($"ritasker/Azure.ContainerRegistry/{stackName}");
-    var containerRegistryLoginServerUrl = containerRegistryStackRef.RequireOutput("LoginServer").Apply(s => (string)s);
+    var containerRegistryLoginServerUrl = containerRegistryStackRef.RequireOutput("registry-login-server").Apply(s => (string)s);
     var containerRegistryResourceGroup = containerRegistryStackRef.RequireOutput("rg-name").Apply(s => (string)s);
     var containerRegistryName = containerRegistryStackRef.RequireOutput("registry").Apply(s => (string)s);
     
@@ -26,7 +26,7 @@ return await Deployment.RunAsync(async () =>
         }));
 
     var containerAppStackRef = new StackReference($"ritasker/Azure.ContainerApps/{stackName}");
-    var mgdEnvId = containerAppStackRef.GetOutput("Id");
+    var mgdEnvId = containerAppStackRef.RequireOutput("Id").Apply(s => (string)s);
     var resourceGroupName = $"container-apps-{stackName}";
     
     var config = new Config("tower-of-delusion");
