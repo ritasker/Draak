@@ -89,7 +89,8 @@ return await Deployment.RunAsync(async () =>
         {
             CustomTimeouts = new CustomTimeouts
             {
-                Update = TimeSpan.FromMinutes(5)
+                Create = TimeSpan.FromMinutes(20),
+                Update = TimeSpan.FromMinutes(20)
             }
         });
     
