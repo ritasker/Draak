@@ -1,0 +1,3 @@
+config:
+  azure-native:location: uksouth
+  tower-of-delusion:ImageTag: "19ee29b"

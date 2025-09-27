@@ -55,3 +55,36 @@ jobs:
       run: |
         az acr login --name pier8
         dotnet run --project ./tower-of-delusion/src/TowerOfDelusion.Build -c Release -- push-image
+
+  deploy-production:
+    name: Deploy to production
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Get ShortSHA
+        run: echo "CI_COMMIT_SHORT_SHA=${GITHUB_SHA::8}" >> $GITHUB_ENV
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.*
+          
+      - name: Pulumi up
+        uses: pulumi/actions@v6
+        with:
+          command: up
+          stack-name: ritasker/TowerOfDelusion.Pulumi/production
+          work-dir: tower-of-delusion/src/TowerOfDelusion.Pulumi
+          config-map: "{tower-of-delusion:ImageTag: $CI_COMMIT_SHORT_SHA}"
+        env:
+          ARM_USE_OIDC: "true"
+          ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
