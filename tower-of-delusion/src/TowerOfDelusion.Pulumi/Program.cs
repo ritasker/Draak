@@ -30,7 +30,7 @@ return await Deployment.RunAsync(async () =>
     var resourceGroupName = $"container-apps-{stackName}";
     
     var config = new Config("tower-of-delusion");
-    var imageTag = config.Require("ImageTag");
+    var imageTag = Environment.GetEnvironmentVariable("CI_COMMIT_SHORT_SHA");
     var containerImage = Output.Format($"{containerRegistryLoginServerUrl}/tower-of-delusion:{imageTag}");
     
     var containerApp = new ContainerApp("tower-of-delusion", new ContainerAppArgs
