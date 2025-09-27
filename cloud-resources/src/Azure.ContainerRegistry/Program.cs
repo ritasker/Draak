@@ -38,6 +38,7 @@ return await Pulumi.Deployment.RunAsync(() =>
     return new Dictionary<string, object?>
     {
         ["rg-name"]  = resourceGroup.Name,
-        ["registry"] = containerRegistry.Name
+        ["registry"] = containerRegistry.Name,
+        ["registry-login-server"] = containerRegistry.LoginServer
     };
 });
