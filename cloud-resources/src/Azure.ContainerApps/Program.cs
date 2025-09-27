@@ -11,48 +11,50 @@ return await Pulumi.Deployment.RunAsync(() =>
 {
     var stackName = Pulumi.Deployment.Instance.StackName;
     var resourceGroupName = $"container-apps-{stackName}";
-
+    
     var config = new Config("container-apps");
     var environment = config.Require("environment");
 
     var resourceGroup = new ResourceGroup("resourceGroup", new ResourceGroupArgs
     {
         ResourceGroupName = resourceGroupName,
-        Tags = { { "environment", environment } }
+        Tags = {{ "environment", environment}}
     });
-
+    
     var workspaceName = $"{environment}-logs";
     var workspace = new Insights.Workspace(workspaceName, new Insights.WorkspaceArgs
     {
-        WorkspaceName = workspaceName,
+        WorkspaceName     = workspaceName,
         ResourceGroupName = resourceGroup.Name,
-        Sku = new WorkspaceSkuArgs { Name = "PerGB2018" },
-        RetentionInDays = config.RequireInt32("logs-retention-days"),
-        Tags = { { "environment", environment } }
+        Sku               = new WorkspaceSkuArgs { Name = "PerGB2018" },
+        RetentionInDays   = config.RequireInt32("logs-retention-days"),
+        Tags              = { { "environment", environment } }
     });
-
+    
     var sharedKeys = Output.Tuple(resourceGroup.Name, workspace.Name)
         .Apply(items => Insights.GetSharedKeys.InvokeAsync(
             new Insights.GetSharedKeysArgs
             {
                 ResourceGroupName = items.Item1,
-                WorkspaceName = items.Item2
+                WorkspaceName     = items.Item2
             }));
-
+    
+    // TODO remove this comment
+    
     var managedEnvironment = new ManagedEnvironment(
         environment,
         new ManagedEnvironmentArgs
         {
-            EnvironmentName = environment,
+            EnvironmentName   = environment,
             ResourceGroupName = resourceGroup.Name,
-            ZoneRedundant = false,
+            ZoneRedundant     = false,
             AppLogsConfiguration = new AppLogsConfigurationArgs
             {
                 Destination = "log-analytics",
                 LogAnalyticsConfiguration = new LogAnalyticsConfigurationArgs
                 {
                     CustomerId = workspace.CustomerId,
-                    SharedKey = sharedKeys.Apply(r => r.PrimarySharedKey)!
+                    SharedKey  = sharedKeys.Apply(r => r.PrimarySharedKey)!
                 }
             },
             Tags = { { "environment", environment } }
@@ -69,9 +71,8 @@ return await Pulumi.Deployment.RunAsync(() =>
 
     return new Dictionary<string, object?>
     {
-        ["mgd-env-id"] = managedEnvironment.Id,
-        ["mgd-env-name"] = managedEnvironment.Name,
-        ["mgd-env-ip"] = managedEnvironment.StaticIp,
-        ["aca-rg-name"] = resourceGroup.Name
+        ["Id"]        = managedEnvironment.Id,
+        ["Name"]      = managedEnvironment.Name,
+        ["StaticIp "] = managedEnvironment.StaticIp
     };
 });
