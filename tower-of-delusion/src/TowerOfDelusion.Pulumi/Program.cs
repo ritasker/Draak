@@ -31,6 +31,7 @@ return await Deployment.RunAsync(async () =>
     
     var config = new Config("tower-of-delusion");
     var imageTag = config.Require("ImageTag");
+    var containerImage = Output.Format($"{containerRegistryLoginServerUrl}/tower-of-delusion:{imageTag}");
     
     var containerApp = new ContainerApp("tower-of-delusion", new ContainerAppArgs
         {
@@ -74,7 +75,7 @@ return await Deployment.RunAsync(async () =>
                     new ContainerArgs
                     {
                         Name = "tower-of-delusion",
-                        Image = $"{containerRegistryLoginServerUrl}/tower-of-delusion:{imageTag}",
+                        Image = containerImage,
                         Resources = new ContainerResourcesArgs
                         {
                             Cpu = 2,
